@@ -1,0 +1,846 @@
+---
+title: "Crayfish Evolution 2017"
+author: "AJR"
+date: "`r format(Sys.time(), '%d %B %Y')`"
+output: 
+  html_document: 
+    theme: cerulean
+    toc: yes
+    toc_depth: 4
+    toc_float: yes
+---
+
+Analyzing Elisa's morphology data in preparation for my talk at Evolution 2017.
+
+```{r setup, include=F}
+knitr::opts_chunk$set(echo = T, cache=T, message=F, error=F)
+library(doBy)
+library(plyr)
+library(lattice)
+library(xtable)
+library(reshape2)
+library(tidyr)
+library(MASS)
+library(car)
+library(mvnormtest)
+```
+
+```{r my functions, eval=T, include=F}
+sumfun <- function(x, n) {c(n=length(which(x!="NA")), mean=round(mean(x, na.rm=T), digits=n), sd=round(sd(x, na.rm=T), digits=n))}
+```
+
+### Note about saving graphics 
+
+There are 3 good methods for creating and saving graphs:
+
+1. Run pdf(file="Rplots.pdf", width=7in, height=7in, ...) before the graphics code and then dev.off afterwards. You can specify the name of the file to save and parameters such as size (check help for other optional arguments). This method will create and save the graphic but will NOT print it to the console or screen, you have to open the saved file to see the graphic. 
+
+2. Run dev.print(device=pdf, file="Rplots.pdf", width=7in, height=7in, ...) AFTER the graphics code. This function copies the current graphic being displayed (that you just ran) and prints it to the device you specified (pdf in this example). This method first creates the graphic and prints it to the Viewer/Window and then creates a copy saved as the file you specified. Thus, you can see how it looks before you decide to save it.
+
+3. If you are using ggplot2, you can create and print the graphic and then use ggsave(file=filename, ...). Other arguments are available but not required, will use defaults.
+
+**Note about pdf():** The pdf function will make assumptions about the font and colors which may not match what you would see if you printed to the Viewer/Window. You are able to specify these arguments.
+
+However, note that some things like fonts and color can change between the screen printed version and the saved version as pdf does not know what options R was using. You are able to specify these arguments.
+
+# Morphological data
+
+## Load and prepare datasets
+
+Loading original dataset and doing cleanup.
+
+```{r data, results=F}
+load("morphdata_qc.RData") # cray_morph
+ls()
+
+head(data)
+
+table(data$group, data$field.id)
+
+table(data$pop, data$field.id)
+
+# excluding the Rusty? individual which was found on a supposedly allopatric Sanborn R.
+data <- droplevels(subset(data, field.id!="Rusty?"))
+table(data$group, data$field.id)
+```
+
+## Add columns for site order along the sympatric rivers (Korder and Horder)
+
+```{r orders}
+data$Korder <- adply(.data=as.character(data$pop), .margins=1, .fun=switch,
+  VSG=1,
+  SCL=1,
+  CRM=1,
+  KOB=2,
+  KOA=3,
+  KOC=4,
+  KOK=5,
+  KDN=6,
+  KGL=7,
+  STW=8,
+  BOK=8,
+  NA)[,2]
+
+data$Horder <- adply(.data=as.character(data$pop), .margins=1, .fun=switch,
+  CRM=1,
+  SCL=1,
+  VSG=1,
+  HUX=2,
+  TMR=3,
+  HHT=4,
+  HRM=5,
+  LLB=6,
+  BOK=7,
+  STW=7,
+  NA)[,2]
+```
+
+## Create data subsets
+
+```{r subsets}
+# create data subsets
+sanborn <- droplevels(subset(data, group=="sanborn"))
+rusty <- droplevels(subset(data, group=="rusty"))
+huron <- droplevels(subset(data, group=="huron"))
+kokosing <- droplevels(subset(data, group=="kokosing"))
+native <- rbind(rusty, sanborn)
+```
+
+
+## Table summaries of the data
+
+```{r data summaries, echo=F}
+knitr::kable(summaryBy(carapaceL + carapaceWL + areolaLcaraL + areolaWL + rostrumWcaraL + acumenLcaraL + rostrumWacumenL ~ pop, data=sanborn, FUN=mean, na.rm=T, keep.names=T))
+
+knitr::kable(summaryBy(carapaceL + carapaceWL + areolaLcaraL + areolaWL + rostrumWcaraL + acumenLcaraL + rostrumWacumenL ~ pop, data=rusty, FUN=mean, na.rm=T, keep.names=T))
+
+knitr::kable(summaryBy(carapaceL + carapaceWL + areolaLcaraL + areolaWL + rostrumWcaraL + acumenLcaraL + rostrumWacumenL ~ pop, data=kokosing, FUN=mean, na.rm=T, keep.names=T))
+
+knitr::kable(summaryBy(carapaceL + carapaceWL + areolaLcaraL + areolaWL + rostrumWcaraL + acumenLcaraL + rostrumWacumenL ~ pop, data=huron, FUN=mean, na.rm=T, keep.names=T))
+```
+
+## Graphs
+
+### Multipanel graphs
+
+Multipanel graphs can be built in base R with a separate line of code for each desired plot and using graphical parameters to define placement of plots.
+
+Alternatively, such graphs can be built using lattice or ggplot2. 
+
+The method using graphical parameters is described here and lattice is generally used.
+
+#### Example using par and mfrow
+
+Using par() sets the graphical parameters, such as how to layout the plots in the viewing window. mfrow=c(rows,cols) tells R how many rows and columns of graphs you want to print at once. R will create each graph individually and then add them to the plot.
+
+Use dev.off() when you are finished to reset the graphical parameters (so R will not try to use the same settings for the next graph that you want to make).
+
+```{r example using par, eval=F, include=T}
+names(data)
+
+par(mfrow=c(2,2))
+with(data, boxplot(carapaceL ~ group, xlab="label me", ylab="labelme"))
+with(data, boxplot(carapaceW ~ group))
+with(data, boxplot(areolaL ~ group))
+with(data, boxplot(areolaW ~ group))
+dev.off()
+```
+
+### Histograms
+
+```{r, eval=F}
+histogram(~ carapaceL, data)
+histogram(~ log(carapaceL), data)
+histogram(~ log10(carapaceL), data)
+```
+
+
+### Scatterplots
+
+```{r, eval=FALSE}
+with(data, boxplot(areolaL ~ pop, las=2))
+
+with(data, xyplot(carapaceW ~ carapaceL, groups=group, pch=c(15, 15, 17, 19), col=c("purple", "violet", "red", "green"), cex=1.1))
+levels(data$group)
+
+with(data, xyplot(chelaL ~ carapaceL, groups=group, pch=c(15, 15, 17, 19), col=c("purple", "violet", "red", "green"), cex=1.1))
+
+with(data, xyplot(dactylL ~ chelaL, groups=group, pch=c(15, 15, 17, 19), col=c("purple", "violet", "red", "green"), cex=1.1))
+
+with(data, dotplot(dactylLchL ~ group, cex=1.1))
+with(huron, dotplot(dactylLchL ~ pop, cex=1.1))
+with(kokosing, dotplot(dactylLchL ~ pop, cex=1.1))
+```
+
+#### Ellipses on scatterplots
+
+```{r, eval=T}
+levels(native$group)
+
+plot(chelaL ~ carapaceL, data=native, col=c("red","blue")[native$group], pch=c(17,19)[native$group])
+abline(lm(chelaL ~ carapaceL, data=rusty), col="red")
+abline(lm(chelaL ~ carapaceL, data=sanborn), col="blue")
+
+y <- native$chelaL
+x <- native$carapaceL
+
+rus <- lm(y ~ x, data=native, subset=(group=="rusty"))
+san <- lm(y ~ x, data=native, subset=(group=="sanborn"))
+
+par(mfrow=c(1,2))
+dataEllipse(x, y, groups=native$group, levels=c(0.95), col=c("red", "blue"))
+abline(rus, col="red")
+abline(san, col="blue")
+range(x, na.rm=T)
+range(y, na.rm=T)
+
+with(native, boxplot(chelaLcaraL ~ group, las=1, ylab="Ratio of chela length to carapace length"))
+par(mfrow=c(1,1))
+# be sure to reset the par before trying to create another plot
+```
+
+```{r}
+densityplot(~ carapaceL, data=native, groups=group, auto.key=T)
+densityplot(~ carapaceW, data=native, groups=group, auto.key=T)
+densityplot(~ carapaceWL, data=native, groups=group, auto.key=T)
+densityplot(~ chelaL/carapaceL, data=native, groups=group, auto.key=T)
+
+densityplot(~ areolaW/carapaceL, data=native, groups=group, auto.key=T)
+```
+
+
+#### Pairwise scatterplots as multipanel graphs.
+
+```{r, eval=F}
+splom(~ data[c("carapaceL", "carapaceW", "areolaL", "areolaW")] | group, data=data)
+
+splom(~ data[c("carapaceL", "carapaceW", "areolaL", "areolaW")], data=data, groups=group, auto.key=list(space="right"))
+
+splom(~ data[c("carapaceL", "carapaceW", "areolaL", "areolaW")], data=data, groups=pop, auto.key=list(space="right"))
+```
+
+### Boxplots 
+
+```{r, eval=FALSE}
+head(data)
+
+with(data, boxplot(carapaceL ~ Korder, names=c("Sanborn", "KOB", "KOA", "KOC", "KOK", "KDN", "KGL", "Rusty")))
+with(data, xyplot(dactylLchL ~ Korder))
+
+with(data, boxplot(dactylLchL ~ Horder))
+with(data, bwplot(dactylLchL ~ Horder, horizontal=F))
+with(data, xyplot(dactylLchL ~ Horder))
+with(data, bwplot(dactylLchL ~ pop | group, horizontal=F, scales=list(relation="free", rot=90)))
+with(data, boxplot(carapaceL ~ pop, las=2))
+
+ldata <- data[,c(1:18,20:22,25:37)]
+names(ldata)
+ldata <- gather(ldata, "trait", "value", c(9:34), na.rm=T, factor_key=T)
+str(ldata)
+levels(ldata$trait)
+
+levels(ldata$trait)[1:3]
+
+with(droplevels(subset(ldata, trait%in%c("carapaceL", "carapaceW"))), bwplot(value ~ group | trait, horizontal=F, scales=list(relation="free", rot=0)))
+
+with(data, bwplot(carapaceL + carapaceW ~ group, allow.multiple=T, horizontal=F, outer=T, scales=list(relation="free"), ylab=""))
+```
+
+## Stats
+
+What do I want to do here?
+
+1. Show variation between the two species
+2. Show how variation may change along a river?
+3. Differentiate between males and females on the graphs?
+
+### Univariate ANOVAs
+
+```{r, eval=FALSE}
+
+carapaceWL.aov <- aov(carapaceWL ~ group/pop, data=native) # runs the anova
+anova(carapaceWL.aov) # summary of the analysis
+
+TukeyHSD(carapaceWL.aov, "group")
+
+koko <- droplevels(subset(data, group%in%c("sanborn", "kokosing", "rusty")))
+
+kokoRus <- droplevels(subset(koko, morpho_species=="Rusty" & group!="sanborn"))
+
+kokoRus.mod <- aov(carapaceWL ~ group, data=kokoRus)
+summary(kokoRus.mod)
+TukeyHSD(kokoRus.mod)
+
+kokoSan <- droplevels(subset(koko, morpho_species=="Sanborn" & group!="rusty"))
+
+kokoSan.mod <- aov(carapaceWL ~ group, data=kokoSan)
+summary(kokoSan.mod)
+TukeyHSD(kokoSan.mod)
+```
+
+### MANOVA
+
+```{r, eval=T}
+# names(native)
+y.raw <- as.matrix(native[,9:18], dimnames=list(NULL, colnames(native)[11:20]))
+
+manova(y.raw ~ group/pop, data=native)
+fit <- manova(y.raw ~ group/pop, data=native)
+summary(fit)
+```
+
+### Principle Components Analysis (PCA)
+
+```{r, eval=T}
+# names(data)
+pc.mod <- prcomp(na.omit(data[,9:18]))
+summary(pc.mod)
+biplot(pc.mod)
+```
+
+Let's do a PCA for basic body size measurements using carapaceL, carapaceW, chelaL, palmW
+
+```{r, eval=T}
+names(data)
+body1.pca <- prcomp(na.omit(data[,c("carapaceL", "carapaceW", "chelaL", "palmW")]))
+summary(body1.pca)
+biplot(body1.pca)
+
+ratio1.pca <- prcomp(na.omit(data[,c(25:35)]))
+summary(ratio1.pca)
+biplot(ratio1.pca)
+
+# names(native)
+mydata <- na.omit(native[,c(1:4,9:18)])
+# names(mydata)
+prcomp.native <- prcomp(mydata[,5:14])
+summary(prcomp.native)
+str(prcomp.native)
+plot(prcomp.native$x)
+```
+
+### Discriminant function analysis (DFA)
+
+For intro/background, see Strauss' Chapter 4. Discriminating Groups of Organisms in the book Morphometrics for Nonmorphometricians by Elewa (which I own).
+
+Quick-R has a page for Discriminant Function Analysis
+
+MASS package for lineage and quadratic DFA. "Unless prior probabilities are specified, each assumes proportional prior probabilities (i.e., prior probabilities are based on samples sizes)." 
+
+lower case letters = numeric variables
+upper case letters = categorical factors
+
+Following code does an LDA using listwise deletion of missing data. CV=T give jacknifed predictions. 
+
+
+Remove NAs from the dataset: 
+
+```{r Prepare dataset for LDA, eval=T}
+# names(native)
+train <- na.omit(native[,c(1:4,9:18)])
+```
+
+Run the LDA, with jacknife to assess accuracy of the model.
+
+```{r LDA with jacknife and assessing accuracy, eval=T}
+fit.cv <- lda(group ~ carapaceL + carapaceW + areolaL + areolaW + acumenL + rostrumW + dactylL + chelaL + palmW + palmL, data=train, na.action="na.omit", CV=T)
+
+# percent correct for each category of categorical variable
+ct <- table(train$group, fit.cv$class)
+diag(prop.table(ct,1))
+# total percent correct
+sum(diag(prop.table(ct)))
+```
+
+Run the regular LDA without a jacknife (this one can be plotted).
+
+```{r Regular LD fit (no jacknife), eval=T}
+fit <- lda(group ~ carapaceL + carapaceW + areolaL + areolaW + acumenL + rostrumW + dactylL + chelaL + palmW + palmL, data=train, na.action="na.omit")
+fit
+```
+
+Visualize the results. Using CV=T returns results as a list and this prevents plotting. Run the analysis without CV=T to get a "lda" class object returned, which can then be manipulated/plotted as below.
+
+There is only 1 LD axis so no scatterplot here.
+
+```{r Visualize LDA results, eval=T}
+plot(fit)
+str(fit)
+# to see what happens if you leave out variables:
+update(fit, .~. -acumenL -rostrumW)
+# library(klaR)
+# # this produces a VERY large figure as it's doing pairwise scatterplots
+# partimat(group ~ carapaceL + carapaceW + areolaL + areolaW, data=train, method="lda", nplots.vert=3, nplots.hor=3)
+```
+
+#### Now DFA with ratios
+
+This also produces a single axis. Results are precisely the same in terms of accuracy of the prediction; not printed here.
+
+```{r LDA with ratios, include=F}
+# names(native)
+
+myratios <- na.omit(native[,c(1:4,25:36)])
+fit.ratio.cv <- lda(group ~ carapaceWL + areolaLcaraL + areolaWL + acumenLcaraL + rostrumWcaraL + rostrumWacumenL + dactylLchL + dactylLpalmL + chelaLcaraL + palmWchL + palmLchL + palmWL, data=myratios, na.action="na.omit", CV=T)
+fit.ratio.cv
+
+# percent correct for each category of categorical variable
+ct <- table(myratios$group, fit.ratio.cv$class)
+diag(prop.table(ct,1))
+# total percent correct
+sum(diag(prop.table(ct)))
+
+fit.ratio <- lda(group ~ carapaceWL + areolaLcaraL + areolaWL + acumenLcaraL + rostrumWcaraL + rostrumWacumenL + dactylLchL + dactylLpalmL + chelaLcaraL + palmWchL + palmLchL + palmWL, data=myratios, na.action="na.omit")
+fit.ratio
+str(fit.ratio)
+
+plot(fit.ratio, dimen=1)
+fit.ratio$coef
+methods(class="lda")
+coef(fit.ratio)
+model.frame(fit.ratio)
+pred.ratio <- predict(fit.ratio)
+
+ldahist(pred.ratio$x, pred.ratio$class)
+
+myratios$LD1 <- pred.ratio$x
+xyplot(carapaceWL + areolaLcaraL + areolaWL + acumenLcaraL + rostrumWcaraL + rostrumWacumenL + dactylLchL + dactylLpalmL + chelaLcaraL + palmWchL + palmLchL + palmWL ~ LD1, data=myratios, group=group, auto.key=T, scales="free")
+
+with(predict(fit.ratio), ldahist(x, class))
+ldahist(native[,9:18], native$group)
+```
+
+Seems like you can then use the fitted model to predict the group identity of new samples...
+
+#### Log-transforming the variables
+
+In many cases, people log transform these types of variables because it makes bivariate relationships more linear and because "distances increase by multiplicative growth" (Cadrin 2010 in Morphometrics for Nonmorphometricians, ed. Elewa). *NOTE: People seem to be using log base 10 here, not natural log (which is the default of the log() function in R). So it's necessary to specify base 10.*
+
+```{r log tranform variables, include=F}
+plot(native[,9:11])
+mylog <- cbind(native[,1:4], log(native[,9:18], base=10))
+mylog <- na.omit(mylog)
+plot(mylog[,5:7])
+```
+
+Not clear to me that it made much difference in terms of linearity but let's see what the analysis looks like.
+
+```{r LDA with jacknife on logged values, include=F}
+fit.log.cv <- lda(group ~ carapaceL + carapaceW + areolaL + areolaW + acumenL + rostrumW + dactylL + chelaL + palmW + palmL, data=mylog, na.action="na.omit", CV=T)
+fit.log.cv
+# percent correct for each category of categorical variable
+ct <- table(mylog$group, fit.log.cv$class)
+diag(prop.table(ct,1))
+# total percent correct
+sum(diag(prop.table(ct)))
+```
+
+Using logged values was actually less good at separating the two taxa; results not printed.
+
+```{r regular LDA on logged values, include=F}
+fit.log <- lda(group ~ carapaceL + carapaceW + areolaL + areolaW + acumenL + rostrumW + dactylL + chelaL + palmW + palmL, data=mylog, na.action="na.omit")
+fit.log
+str(fit.log)
+
+plot(fit.log, dimen=1)
+coef(fit.log)
+
+with(predict(fit.log), ldahist(x, class))
+ldahist(mylog[,5:14], mylog$group)
+```
+
+Ok, so I'm not sure I need to use the log transformation, it does not seem that different and if anything is a worse fit.
+
+### Assess normality and constant variance assumptions
+
+```{r identify outliers, eval=T}
+library(mvoutlier)
+library(mvnormtest)
+outliers <- aq.plot(train[5:14])$outliers
+with(train, train[which(outliers==T),])
+# names(train)
+```
+
+Raw measures look better than ratios, more variance explained, fewer outliers.
+
+#### Assessing univariate normality:
+
+```{r normality test, echo=F}
+par(mfrow=c(2,3))
+for (i in 5:14) {
+  qqnorm(train[[i]])
+  qqline(train[[i]])
+}
+
+for (i in 5:14) {
+  print(names(train)[i])
+  print(shapiro.test(train[[i]]))
+}
+```
+
+Plots look ok, not fabulous toward the ends but ok. (The log-transformed data look much worse.) Quite a few variables fail the normality test. 
+
+Let's see what happens if I remove the points identified above as outliers.
+
+```{r remove outliers and retest, echo=F}
+table(train$outliers==T)
+
+test <- with(train, train[which(outliers==F),])
+
+for (i in 5:14) {
+  print(names(test)[i])
+  print(shapiro.test(test[[i]]))
+}
+```
+
+That substantially improves the fit. Let's also see what happens if I test only sanborns and only rustys.
+
+```{r test normality with single species groups, echo=F}
+san <- with(train, train[which(group=="sanborn"),])
+rus <- with(train, train[which(group=="rusty"),])
+
+for (i in 5:14) {
+  x <- san
+  print(names(x)[i])
+  print(shapiro.test(x[[i]]))
+}
+
+for (i in 5:14) {
+  x <- rus
+  print(names(x)[i])
+  print(shapiro.test(x[[i]]))
+}
+```
+
+That's much worse for both groups!
+
+What about the complete dataset, including the invaded rivers? Nearly everything is non-normal: 
+
+```{r test normality in complete dataset (with invaded rivers), echo=F}
+for (i in 9:18) {
+  x <- data
+  print(names(x)[i])
+  print(shapiro.test(x[[i]]))
+}
+```
+
+Maybe this relates to the fact that hybridization is occurring?? On we go...
+
+#### Multivariate normality.
+
+```{r test multivariate normality, echo=F}
+mshapiro.test(t(train[,5:14]))
+```
+So that's a tiny p-value which I guess means the data are not in multivariate normality.
+
+Graphical assessment of multivariate normality
+
+```{r graphical view of multivariate normality, eval=T}
+x <- as.matrix(train[,5:14]) # n x p numeric matrix
+center <- colMeans(x) # centroid
+n <- nrow(x) 
+p <- ncol(x)
+cov <- cov(x)
+d <- mahalanobis(x, center, cov) # distances
+qqplot(qchisq(ppoints(n), df=p), d, main="QQ Plot Assessing Multivariate Normality", ylab="Mahalanobis D2")
+abline(a=0,b=1)
+
+train[d>20,]
+
+train[train$carapaceL>40,]
+```
+
+Ah, from this plot it seems clear there are a couple of outliers up there. Two of my largest rusty males. So perhaps what I take away is that as crayfish get particularly large their shape is changing in a different way than before that point?
+
+**Homogeneity of Variances**
+
+Testing for whether variance differs between the groups. Bartlett test: looks good except rostrum width and acumen length are on the cusp of significance.
+
+```{r variance homogeneity test, echo=F}
+for (i in 5:14) {
+  print(names(train)[i])
+  print(bartlett.test(train[[i]] ~ group, data=train))
+  }
+```
+
+### DFA with invaded rivers 
+
+Now, let's figure out how to run the analysis to predict the identity of each individual from an invaded river.
+
+```{r initial DFA for train dataset, echo=F}
+# names(train)
+train <- na.omit(native[,c(1:4,9:18)])
+fit.train <- lda(group ~ carapaceL + carapaceW + areolaL + areolaW + acumenL + rostrumW + dactylL + chelaL + palmW + palmL, data=train, na.action="na.omit")
+fit.train
+```
+
+#### Get posterior probabilities for Kokosing
+
+```{r DFA predicted for kokosing, echo=F}
+kok <- na.omit(kokosing[,c(1:4,9:18)])
+# names(kok)
+pred.kok <- predict(fit.train, newdata=kok[,5:14])
+pred.kok$class
+with(pred.kok, ldahist(x, class))
+
+pred.kok$x
+
+kok$prob.rus <- pred.kok$posterior[,"rusty"]
+kok$prob.san <- pred.kok$posterior[,"sanborn"]
+kok$LD1 <- pred.kok$x
+kok$ldaclass <- pred.kok$class
+names(kok)
+order(levels(kok$pop))
+
+with(kok, plot(ldaclass ~ pop))
+
+with(kok, round(prop.table(table(ldaclass, pop), margin=2), digits=2))
+
+kok$porder <- adply(.data=as.character(kok$pop), .margins=1, .fun=switch, KOB=1, KOA=2, KOC=3, KOK=4, KDN=5, KGL=6, CRM=1, SCL=2, VSG=3, HUX=1, TMR=2, HHT=3, HRM=4, LLB=5, BOK=1, STW=12, NA)[,2]
+kok$pop <- reorder(kok$pop, kok$porder)
+
+plot(kok$prob.rus ~ kok$pop, ylab="Posterior probability of rusty", xlab="River position, upstream to downstream", main="Kokosing R. predicted species identity by site")
+```
+
+#### Get posterior probabilities for Huron
+
+```{r DFA predicted for huron, echo=F}
+hur <- na.omit(huron[,c(1:4,9:18)])
+# names(hur)
+pred.hur <- predict(fit.train, newdata=hur[,5:14])
+pred.hur$class
+with(pred.hur, ldahist(x, class))
+
+hur$prob.rus <- pred.hur$posterior[,"rusty"]
+hur$prob.san <- pred.hur$posterior[,"sanborn"]
+hur$LD1 <- pred.hur$x
+hur$ldaclass <- pred.hur$class
+
+with(hur, round(prop.table(table(ldaclass, pop), margin=2), digits=2))
+
+hur$porder <- adply(.data=as.character(hur$pop), .margins=1, .fun=switch, KOB=1, KOA=2, KOC=3, KOK=4, KDN=5, KGL=6, CRM=1, SCL=2, VSG=3, HUX=1, TMR=2, HHT=3, HRM=4, LLB=5, BOK=1, STW=12, NA)[,2]
+hur$pop <- reorder(hur$pop, hur$porder)
+
+plot(hur$prob.rus ~ hur$pop, ylab="Posterior probability of rusty", xlab="River position, upstream to downstream", main="Huron R. predicted species identity by site")
+```
+
+#### Get posterior probabilities for allopatric samples, for use in graphing.
+
+```{r DFA for train, get posterior probs, echo=T}
+fit.train.cv <- lda(group ~ carapaceL + carapaceW + areolaL + areolaW + acumenL + rostrumW + dactylL + chelaL + palmW + palmL, data=train, na.action="na.omit", CV=T)
+
+pred.allo <- predict(fit.train, newdata=train[,5:14])
+
+ldahist(pred.allo$x, pred.allo$class)
+
+train$prob.rus <- fit.train.cv$posterior[,"rusty"]
+train$prob.san <- fit.train.cv$posterior[,"sanborn"]
+train$LD1 <- pred.allo$x
+train$ldaclass <- pred.allo$class
+
+with(train, round(prop.table(table(ldaclass, pop), margin=2), digits=2))
+
+with(train, plot(ldaclass ~ pop))
+
+train$porder <- adply(.data=as.character(train$pop), .margins=1, .fun=switch, KOB=1, KOA=2, KOC=3, KOK=4, KDN=5, KGL=6, CRM=1, SCL=2, VSG=3, HUX=1, TMR=2, HHT=3, HRM=4, LLB=5, BOK=1, STW=12, NA)[,2]
+
+train$pop <- reorder(train$pop, train$porder)
+
+with(train, plot(carapaceL ~ LD1, col=c("red","blue")[train$group]))
+with(train, plot(carapaceW ~ LD1, col=c("red","blue")[train$group]))
+with(train, plot(areolaL ~ LD1, col=c("red","blue")[train$group]))
+with(train, plot(areolaW ~ LD1, col=c("red","blue")[train$group]))
+with(train, plot(chelaL ~ LD1, col=c("red","blue")[train$group]))
+with(train, plot(palmW ~ LD1, col=c("red","blue")[train$group]))
+
+xyplot(carapaceL + carapaceW + areolaL + areolaW + acumenL + rostrumW + dactylL + chelaL + palmW + palmL ~ LD1, data=train, group=group, auto.key=T, scales="free")
+
+xyplot(areolaL + areolaL/carapaceL ~ LD1, data=train, group=group, auto.key=T, scales="free")
+```
+
+#### Mahalanobis distances
+
+```{r Mahalanobis distance between groups}
+meangroup <- fit.train$mean
+meanproj <- meangroup%*%fit.train$scaling
+dist(meanproj)
+```
+
+### Barchart of posterior probabilities
+
+First need to create the dataset with posterior probabilities for each group. Then switch to long format to make the barchart. 
+
+```{r prep dataset, eval=T}
+# with(huron, table(pop, Horder)) # HUX, TMR, HHT, HRM, LLB
+# with(kokosing, table(pop, Korder)) # KOB, KOA, KOC, KOK, KDN, KGL
+
+full <- rbind(train, kok, hur)
+full <- arrange(full, group, pop, prob.rus)
+
+long <- gather(full, key="assign", value="prob", 15:16)
+names(long)
+long <- arrange(long, group, pop, assign)
+long$group <- factor(toupper(long$group))
+
+# change labels to give river names for clarity
+long$popname <- factor(adply(.data=as.character(long$pop), .margins=1, .fun=switch,
+	CRM="Mohican R.", SCL="Salt Cr.", VSG="Vermilion R.", KOB="K1", KOA="K2", KOC="K3", KOK="K4", KDN="K5", KGL="K6", BOK="Bokes Cr.", STW="Stillwater Cr.", HUX="H1", TMR="H2", HHT="H3", HRM="H4", LLB="H5", NA)[,2])
+```
+
+Now generate the barcharts showing posterior probabilities for individuals within each group and population.
+
+Allopatric sites:
+
+```{r barchart for allopatric samples, echo=F}
+clr <- c("brown4", "lightblue")
+
+a <- list(columns=2, text=c("O. rusticus", "O. sanbornii"), rectangles=F, rect=list(col=clr), cex=0.75)
+
+b=strip.custom(par.strip.text=list(cex=0.75), bg="oldlace")
+
+#pdf(file="barchart_allopatry.pdf", width=6, height=4)
+barchart(prob ~ id | group:popname, groups=assign, data=long, stack=T, scales=list(relation="free", draw=F), subset=(group%in%c("SANBORN", "RUSTY")), layout=c(5,1), ylab=list(label="Posterior assignment probability", cex=0.9), main=list(label="Assignment probabilities in allopatry", cex=1), col=clr, auto.key=a, strip=F, strip.left=b)
+#dev.off()
+# dev.print(device=pdf, file="barchart_allopatry.pdf")
+```
+
+Sympatric sites:
+
+```{r barchart for sympatric sites, echo=F}
+b=strip.custom(par.strip.text=list(cex=0.75), bg="oldlace")
+
+#pdf(file="barchart_sympatry.pdf", width=6, height=4)
+barchart(prob ~ id | group:popname, groups=assign, data=long, stack=T, scales=list(relation="free", draw=F), subset=(group%in%c("KOKOSING","HURON")), layout=c(6,2), ylab=list(label="Posterior assignment probability", cex=0.9), main=list(label="Assignment probabilities in sympatry", cex=1), col=clr, index.cond=list(c(6:11,1:5)),auto.key=a, sub="upstream sites ----> downstream sites", strip.left=b, strip=F)
+#dev.off()
+```
+
+### DFA with gonopod measurements
+
+* Note that females will be removed from this analysis. For the sake of maximizing sample size, I'm including both form 1 and form 2 males.
+* B/c sample size is now low, only including carapaceL and then gonopod measurements (3 of them).
+
+```{r}
+names(native)
+with(native, table(sex, form, exclude=F))
+
+gono.allo <- na.omit(native[,c(1:4,9:18,20:22)])
+
+gono.allo$porder <- adply(.data=as.character(gono.allo$pop), .margins=1, .fun=switch, KOB=1, KOA=2, KOC=3, KOK=4, KDN=5, KGL=6, CRM=1, SCL=2, VSG=3, HUX=1, TMR=2, HHT=3, HRM=4, LLB=5, BOK=1, STW=12, NA)[,2]
+
+gono.allo$pop <- reorder(gono.allo$pop, gono.allo$porder)
+
+fit.gono <- lda(group ~ carapaceL + gonopodL + mesial.projL + central.projL, data=gono.allo, na.action="na.omit")
+fit.gono
+
+fit.gono.cv <- lda(group ~ carapaceL + carapaceW + areolaL + areolaW + acumenL + rostrumW + dactylL + chelaL + palmW + palmL + gonopodL + mesial.projL + central.projL, data=gono.allo, na.action="na.omit", CV=T)
+ct <- table(gono.allo$group, fit.gono.cv$class)
+diag(prop.table(ct,1))
+sum(diag(prop.table(ct)))
+
+fit.gono.cv
+plot(fit.gono)
+```
+So using the gonopod measurements provides perfect discrimination. Now have to try this out on the sympatric data set.
+
+```{r}
+names(gono.allo)
+pred.gono.allo <- predict(fit.gono, newdata=gono.allo)
+
+ldahist(pred.gono.allo$x, pred.gono.allo$class)
+
+gono.allo$prob.rus <- fit.gono.cv$posterior[,"rusty"]
+gono.allo$prob.san <- fit.gono.cv$posterior[,"sanborn"]
+gono.allo$LD1 <- pred.gono.allo$x
+gono.allo$ldaclass <- pred.gono.allo$class
+
+with(gono.allo, round(prop.table(table(ldaclass, pop), margin=2), digits=2))
+
+with(gono.allo, plot(ldaclass ~ pop))
+```
+
+Huron gonopods 
+
+```{r}
+hur.gono <- na.omit(huron[,c(1:4,9:18,20:22)])
+names(hur.gono)
+
+hur.gono$porder <- adply(.data=as.character(hur.gono$pop), .margins=1, .fun=switch, KOB=1, KOA=2, KOC=3, KOK=4, KDN=5, KGL=6, CRM=1, SCL=2, VSG=3, HUX=1, TMR=2, HHT=3, HRM=4, LLB=5, BOK=1, STW=12, NA)[,2]
+
+hur.gono$pop <- reorder(hur.gono$pop, hur.gono$porder)
+
+pred.hur.gono <- predict(fit.gono, newdata=hur.gono)
+pred.hur.gono$class
+with(pred.hur.gono, ldahist(x, class))
+
+hur.gono$prob.rus <- pred.hur.gono$posterior[,"rusty"]
+hur.gono$prob.san <- pred.hur.gono$posterior[,"sanborn"]
+hur.gono$LD1 <- pred.hur.gono$x
+hur.gono$ldaclass <- pred.hur.gono$class
+
+with(hur.gono, round(prop.table(table(ldaclass, pop), margin=2), digits=2))
+
+with(hur.gono, plot(ldaclass ~ pop, ylab="Posterior probability of rusty", xlab="River position, upstream to downstream", main="Huron R. predicted species identity by site"))
+```
+
+Kokosing gonopods 
+
+```{r}
+kok.gono <- na.omit(kokosing[,c(1:4,9:18,20:22)])
+names(kok.gono)
+
+kok.gono$porder <- adply(.data=as.character(hur.gono$pop), .margins=1, .fun=switch, KOB=1, KOA=2, KOC=3, KOK=4, KDN=5, KGL=6, CRM=1, SCL=2, VSG=3, HUX=1, TMR=2, HHT=3, HRM=4, LLB=5, BOK=1, STW=12, NA)[,2]
+
+hur.gono$pop <- reorder(hur.gono$pop, hur.gono$porder)
+
+pred.kok.gono <- predict(fit.gono, newdata=kok.gono)
+pred.kok.gono$class
+with(pred.kok.gono, ldahist(x, class))
+
+kok.gono$prob.rus <- pred.kok.gono$posterior[,"rusty"]
+kok.gono$prob.san <- pred.kok.gono$posterior[,"sanborn"]
+kok.gono$LD1 <- pred.kok.gono$x
+kok.gono$ldaclass <- pred.kok.gono$class
+
+with(kok.gono, round(prop.table(table(ldaclass, pop), margin=2), digits=2))
+
+with(kok.gono, plot(ldaclass ~ pop, ylab="Posterior probability of rusty", xlab="River position, upstream to downstream", main="Kokosing R. predicted species identity by site"))
+```
+
+Barcharts
+
+```{r}
+fullgono <- rbind(gono.allo, kok.gono, hur.gono)
+fullgono <- arrange(fullgono, group, pop, prob.rus)
+names(fullgono)
+# if all traits plus gono
+longgono <- gather(fullgono, key="assign", value="prob", 19:20)
+# if gono only
+# longgono <- gather(fullgono, key="assign", value="prob", 18:19)
+
+names(longgono)
+longgono <- arrange(longgono, group, pop, assign)
+longgono$group <- factor(toupper(longgono$group))
+
+# change labels to give river names for clarity
+longgono$popname <- factor(adply(.data=as.character(longgono$pop), .margins=1, .fun=switch,
+	CRM="Mohican R.", SCL="Salt Cr.", VSG="Vermilion R.", KOB="K1", KOA="K2", KOC="K3", KOK="K4", KDN="K5", KGL="K6", BOK="Bokes Cr.", STW="Stillwater Cr.", HUX="H1", TMR="H2", HHT="H3", HRM="H4", LLB="H5", NA)[,2])
+
+clr <- c("brown4", "lightblue")
+
+a <- list(columns=2, text=c("O. rusticus", "O. sanbornii"), rectangles=F, rect=list(col=clr), cex=0.75)
+
+b=strip.custom(par.strip.text=list(cex=0.75), bg="oldlace")
+
+# allopatric
+pdf(file="barchart_allopatry_gono.pdf", width=6, height=4)
+barchart(prob ~ id | group:popname, groups=assign, data=longgono, stack=T, scales=list(relation="free", draw=F), subset=(group%in%c("SANBORN", "RUSTY")), layout=c(5,1), ylab=list(label="Posterior assignment probability", cex=0.9), main=list(label="Assignment probabilities in allopatry", cex=1), col=clr, auto.key=a, strip=F, strip.left=b)
+dev.off()
+
+# sympatric
+b=strip.custom(par.strip.text=list(cex=0.75), bg="oldlace")
+
+pdf(file="barchart_sympatry_gono.pdf", width=6, height=4)
+barchart(prob ~ id | group:popname, groups=assign, data=longgono, stack=T, scales=list(relation="free", draw=F), subset=(group%in%c("KOKOSING","HURON")), layout=c(6,2), ylab=list(label="Posterior assignment probability", cex=0.9), main=list(label="Assignment probabilities in sympatry", cex=1), col=clr, index.cond=list(c(6:11,1:5)),auto.key=a, sub="upstream sites ----> downstream sites", strip.left=b, strip=F)
+dev.off()
+
+```
