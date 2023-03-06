@@ -1,0 +1,13 @@
+      reads_raw  trim_adapter_bp_read1  trim_quality_bp_read1  reads_filtered_by_Ns  reads_filtered_by_minlen  reads_passed_filter
+1A_0      19862                      0                      0                     0                         0                19862
+1B_0      20043                      0                      0                     0                         0                20043
+1C_0      20136                      0                      0                     0                         0                20136
+1D_0      19966                      0                      0                     0                         0                19966
+2E_0      20017                      0                      0                     0                         0                20017
+2F_0      19933                      0                      0                     0                         0                19933
+2G_0      20030                      0                      0                     0                         0                20030
+2H_0      20199                      0                      0                     0                         0                20199
+3I_0      19885                      0                      0                     0                         0                19885
+3J_0      19822                      0                      0                     0                         0                19822
+3K_0      19965                      0                      0                     0                         0                19965
+3L_0      20008                      0                      0                     0                         0                20008

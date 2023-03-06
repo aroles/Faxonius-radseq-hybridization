@@ -1,0 +1,31 @@
+raw_file                               total_reads    cut_found  bar_matched
+rad_example_R1_.fastq                       239866       239866       239866
+
+sample_name                            total_reads
+1A_0                                         19862
+1B_0                                         20043
+1C_0                                         20136
+1D_0                                         19966
+2E_0                                         20017
+2F_0                                         19933
+2G_0                                         20030
+2H_0                                         20199
+3I_0                                         19885
+3J_0                                         19822
+3K_0                                         19965
+3L_0                                         20008
+
+sample_name                               true_bar       obs_bar     N_records
+1A_0                                     CATCATCAT     CATCATCAT         19862
+1B_0                                     CCAGTGATA     CCAGTGATA         20043
+1C_0                                     TGGCCTAGT     TGGCCTAGT         20136
+1D_0                                     GGGAAAAAC     GGGAAAAAC         19966
+2E_0                                     GTGGATATC     GTGGATATC         20017
+2F_0                                     AGAGCCGAG     AGAGCCGAG         19933
+2G_0                                     CTCCAATCC     CTCCAATCC         20030
+2H_0                                     CTCACTGCA     CTCACTGCA         20199
+3I_0                                     GGCGCATAC     GGCGCATAC         19885
+3J_0                                     CCTTATGTC     CCTTATGTC         19822
+3K_0                                     ACGTGTGTG     ACGTGTGTG         19965
+3L_0                                     TTACTAACA     TTACTAACA         20008
+no_match                                         _            _            0

@@ -1,0 +1,441 @@
+raw_file                               total_reads    cut_found  bar_matched
+obr-lib-L05_S65_L005_R1_001.fastq        375345011    375265071          173
+
+sample_name                            total_reads
+BOK01                                            0
+BOK02                                            3
+BOK03                                            0
+BOK04                                            0
+BOK05                                            2
+BOK06                                            3
+BOK07                                            4
+BOK08                                           11
+BOK09                                            0
+BOK11                                            1
+BOK12                                            2
+BOK13                                            2
+BOK14                                            1
+CRM01                                            1
+CRM02                                            3
+CRM03                                            3
+CRM04                                            3
+CRM05                                            2
+CRM06                                            2
+CRM07                                            0
+CRM08                                            2
+CRM09                                            1
+CRM10                                            1
+CRM11                                           11
+CRM12                                            0
+CRM13                                            0
+CRM14                                            0
+HHT01                                            0
+HHT02                                            1
+HHT03                                            2
+HHT04                                            1
+HHT05                                            0
+HHT06                                            1
+HHT07                                            0
+HHT08                                            0
+HHT09                                            3
+HHT10                                            0
+HHT11                                            0
+HHT12                                            0
+HHT13                                            0
+HHT14                                            0
+HRM01                                            0
+HRM02                                            3
+HRM03                                            0
+HRM04                                            0
+HRM05                                            0
+HRM06                                            0
+HRM07                                            1
+HRM08                                            1
+HRM09                                            0
+HRM11                                            0
+HRM12                                            0
+HRM13                                            0
+HRM14                                            0
+HUX01                                            0
+HUX02                                            0
+HUX03                                            0
+HUX04                                            0
+HUX05                                            0
+HUX06                                            0
+HUX07                                            1
+HUX08                                            3
+HUX09                                            0
+HUX10                                            3
+HUX11                                            0
+HUX12                                            0
+HUX14                                            2
+KDN01                                            0
+KDN02                                            0
+KDN03                                            2
+KDN04                                            0
+KDN05                                            0
+KDN06                                            0
+KDN07                                            1
+KDN08                                            0
+KDN09                                            0
+KDN10                                            0
+KDN11                                            0
+KDN12                                            1
+KDN13                                            0
+KDN14                                            0
+KGL01                                            0
+KGL02                                            0
+KGL03                                            0
+KGL04                                            1
+KGL05                                            0
+KGL06                                            1
+KGL07                                            1
+KGL08                                            0
+KGL09                                            0
+KGL11                                            0
+KGL12                                            0
+KGL13                                            0
+KGL14                                            0
+KOA01                                            0
+KOA02                                            0
+KOA03                                            0
+KOA04                                            1
+KOA05                                            0
+KOA06                                            0
+KOA07                                            2
+KOA08                                            0
+KOA09                                            0
+KOA10                                            0
+KOA11                                            0
+KOA12                                            0
+KOA13                                            0
+KOA14                                            0
+KOB01                                            1
+KOB02                                            0
+KOB03                                            0
+KOB04                                            0
+KOB05                                            0
+KOB06                                            0
+KOB07                                            0
+KOB08                                            0
+KOB10                                            2
+KOB11                                            0
+KOB12                                            0
+KOB13                                            0
+KOB15                                            1
+KOC01                                            0
+KOC02                                            1
+KOC03                                            0
+KOC04                                            0
+KOC05                                            0
+KOC06                                            0
+KOC07                                            0
+KOC08                                            0
+KOC09                                            0
+KOC10                                            0
+KOC11                                            1
+KOC12                                            0
+KOC13                                            0
+KOC14                                            0
+KOC14_LN2                                       24
+KOK01                                            0
+KOK02                                            1
+KOK03                                            3
+KOK04                                            0
+KOK05                                            4
+KOK06                                            0
+KOK07                                            0
+KOK08                                            0
+KOK09                                            0
+KOK10                                            0
+KOK11                                            1
+KOK12                                            1
+KOK13                                            1
+KOK14                                            0
+LLB01                                            1
+LLB02                                            2
+LLB03                                            0
+LLB04                                            0
+LLB05                                            0
+LLB06                                            0
+LLB07                                            3
+LLB08                                            0
+LLB09                                            0
+LLB10                                            0
+LLB11                                            0
+LLB12                                            1
+LLB13                                            1
+LLB14                                            0
+SCL01                                            0
+SCL02                                            0
+SCL03                                            3
+SCL04                                            0
+SCL05                                            0
+SCL06                                            1
+SCL07                                            2
+SCL08                                            0
+SCL09                                            1
+SCL10                                            0
+SCL11                                            0
+SCL12                                            0
+SCL13                                            0
+SCL14                                            0
+STW01                                            6
+STW02                                            1
+STW03                                            1
+STW04                                            0
+STW05                                            0
+STW06                                            0
+STW07                                            1
+STW08                                            0
+STW09                                            0
+STW10                                            4
+STW11                                            0
+STW12                                            1
+STW13                                            0
+STW14                                            0
+TMR01                                            0
+TMR02                                            1
+TMR03                                            0
+TMR04                                            0
+TMR05                                            0
+TMR06                                            0
+TMR07                                            1
+TMR08                                            0
+TMR09                                            0
+TMR10                                            1
+TMR11                                            1
+TMR12                                            1
+TMR13                                            1
+TMR14                                            0
+VSG01                                            0
+VSG02                                            1
+VSG03                                            0
+VSG04                                            0
+VSG05                                            2
+VSG07                                            0
+VSG08                                            2
+VSG09                                            2
+VSG10                                            0
+VSG11                                            0
+VSG14                                            0
+
+sample_name                               true_bar       obs_bar     N_records
+BOK01                                TGCACCTCGGCTTA TGCACCTCGGCTTA             0
+BOK02                                TGGCACGTCTCTTA TGGCACGTCTCTTA             3
+BOK03                                TCCAGGAGAAGTTA TCCAGGAGAAGTTA             0
+BOK04                                TCCACTAACCGTTA TCCACTAACCGTTA             0
+BOK05                                CGGCAAGGACCAAC CGGCAAGGACCAAC             2
+BOK06                                TCGAAGCCAAGAAC TCGAAGCCAAGAAC             3
+BOK07                                TGCCAAGCCATAAC TGCCAAGCCATAAC             4
+BOK08                                CGGCGTATCAAGAC CGGCGTATCAAGAC            11
+BOK09                                CCGATACTATCGAC CCGATACTATCGAC             0
+BOK11                                TCGCTCCGTTGGAC TCGCTCCGTTGGAC             1
+BOK12                                CCGATTCGGATTAC CCGATTCGGATTAC             2
+BOK13                                TGCCATATCCAACC TGCCATATCCAACC             2
+BOK14                                TGGATCAGCGTACC TGGATCAGCGTACC             1
+CRM01                                CCGCCAGATAAGCC CCGCCAGATAAGCC             1
+CRM02                                CGCCTCTCGCCGCC CGCCTCTCGCCGCC             3
+CRM03                                CCGATCTGCCATCC CCGATCTGCCATCC             3
+CRM04                                CGGAATGGAACTCC CGGAATGGAACTCC             3
+CRM05                                TCGATAGGCGGTCC TCGATAGGCGGTCC             2
+CRM06                                TCCAGTATTATTCC TCCAGTATTATTCC             2
+CRM07                                CGGCGTTCGCAAGC CGGCGTTCGCAAGC             0
+CRM08                                TCCAGGTCCGCAGC TCCAGGTCCGCAGC             2
+CRM09                                TGCCGCATGGTAGC TGCCGCATGGTAGC             1
+CRM10                                TCCATGCGGTACGC TCCATGCGGTACGC             1
+CRM11                                CGCCGAATATGCGC CGCCGAATATGCGC            11
+CRM12                                TCCACATGGTTCGC TCCACATGGTTCGC             0
+CRM13                                TCGCTTACGAAGGC TCGCTTACGAAGGC             0
+CRM14                                TCGCATCCGCCGGC TCGCATCCGCCGGC             0
+HHT01                                    TTCTCATAA     TTCTCATAA             0
+HHT02                                    TAACGGTAA     TAACGGTAA             1
+HHT03                                     GGCGCAGC      GGCGCAGC             2
+HHT04                                     GGTTGATC      GGTTGATC             1
+HHT05                                    CAATGGAGA     CAATGGAGA             0
+HHT06                                    ATGCGGCGA     ATGCGGCGA             1
+HHT07                                    ACGAGTCAA     ACGAGTCAA             0
+HHT08                                    GGCGCCGAA     GGCGCCGAA             0
+HHT09                                    GATAGATAA     GATAGATAA             3
+HHT10                                    GTCAGACCA     GTCAGACCA             0
+HHT11                                     CCATTAGC      CCATTAGC             0
+HHT12                                     CATGACTC      CATGACTC             0
+HHT13                                    TAAGATAGA     TAAGATAGA             0
+HHT14                                    ATCTATCGA     ATCTATCGA             0
+HRM01                                TCGATTGATTATGC TCGATTGATTATGC             0
+HRM02                                CGGCGATTCATTGC CGGCGATTCATTGC             3
+HRM03                                TCGCTGGTCCAATC TCGCTGGTCCAATC             0
+HRM04                                CGCCTCATTGCTTA CGCCTCATTGCTTA             0
+HRM05                                TCCAGAACTGGTTA TCCAGAACTGGTTA             0
+HRM06                                TCCAACTAACTAAC TCCAACTAACTAAC             0
+HRM07                                TCGACCAGGTCGCC TCGACCAGGTCGCC             1
+HRM08                                TCGCCTGCTCATCC TCGCCTGCTCATCC             1
+HRM09                                TGCACCATTCAAGC TGCACCATTCAAGC             0
+HRM11                                TCCATTGAAGCCGC TCCATTGAAGCCGC             0
+HRM12                                CGGAGCCTCTCGGC CGGAGCCTCTCGGC             0
+HRM13                                TGCCTCAAGCTTGC TGCCTCAAGCTTGC             0
+HRM14                                CGGAGGACCTCTTA CGGAGGACCTCTTA             0
+HUX01                                   CTCCGAAGAA    CTCCGAAGAA             0
+HUX02                                     GGCGGCAG      GGCGGCAG             0
+HUX03                                     ATGAAGCG      ATGAAGCG             0
+HUX04                                     TTACCTAA      TTACCTAA             0
+HUX05                                     GCATATCA      GCATATCA             0
+HUX06                                     GACCGCGA      GACCGCGA             0
+HUX07                                     CCAGTCTA      CCAGTCTA             1
+HUX08                                     TATTGGAC      TATTGGAC             3
+HUX09                                   ATCGGACCAA    ATCGGACCAA             0
+HUX10                                     TCTACGAG      TCTACGAG             3
+HUX11                                     AGTTCGCG      AGTTCGCG             0
+HUX12                                     GAAGGTAA      GAAGGTAA             0
+HUX14                                     TCCGCTCA      TCCGCTCA             2
+KDN01                                     ACGTTCGA      ACGTTCGA             0
+KDN02                                     ATATAGTA      ATATAGTA             0
+KDN03                                     CGCTTGAC      CGCTTGAC             2
+KDN04                                   GGTTGAAGAA    GGTTGAAGAA             0
+KDN05                                     AACCGGAG      AACCGGAG             0
+KDN06                                     CATATGCG      CATATGCG             0
+KDN07                                     AACGCCAA      AACGCCAA             1
+KDN08                                     AGCAGTCA      AGCAGTCA             0
+KDN09                                     TATAAGGA      TATAAGGA             0
+KDN10                                     AAGAGGTA      AAGAGGTA             0
+KDN11                                     TAGGCTAC      TAGGCTAC             0
+KDN12                                   TTGGTAAGAA    TTGGTAAGAA             1
+KDN13                                     CGATATAG      CGATATAG             0
+KDN14                                     GTTGAAGG      GTTGAAGG             0
+KGL01                                    GCAGTTCAA     GCAGTTCAA             0
+KGL02                                    CCGCGCGAA     CCGCGCGAA             0
+KGL03                                    CCAGGATAA     CCAGGATAA             0
+KGL04                                    AGACGACCA     AGACGACCA             1
+KGL05                                   ACGAGTGCGT    ACGAGTGCGT             0
+KGL06                                   TCACGTACTA    TCACGTACTA             1
+KGL07                                   ACTACTATGT    ACTACTATGT             1
+KGL08                                   TACGCTGTCT    TACGCTGTCT             0
+KGL09                                   AGTCGAGAGA    AGTCGAGAGA             0
+KGL11                                   TATGCTAGTA    TATGCTAGTA             0
+KGL12                                   ACGACAGCTC    ACGACAGCTC             0
+KGL13                                   CACGTAGATC    CACGTAGATC             0
+KGL14                                   ACGCTCGACA    ACGCTCGACA             0
+KOA01                                   CGTCTAGTAC    CGTCTAGTAC             0
+KOA02                                   ACTGTACAGT    ACTGTACAGT             0
+KOA03                                   TAGTGTAGAT    TAGTGTAGAT             0
+KOA04                                   AGTGCTACGA    AGTGCTACGA             1
+KOA05                                   TCACGCGAGA    TCACGCGAGA             0
+KOA06                                   ACGTCTCATC    ACGTCTCATC             0
+KOA07                                   CACGTGTCGC    CACGTGTCGC             2
+KOA08                                   AGACGCACTC    AGACGCACTC             0
+KOA09                                   TCTACGTAGC    TCTACGTAGC             0
+KOA10                                   AGACTATACT    AGACTATACT             0
+KOA11                                   TCGATCACGT    TCGATCACGT             0
+KOA12                                   CGATCGTATA    CGATCGTATA             0
+KOA13                                   TCGATAGTGA    TCGATAGTGA             0
+KOA14                                   ACTCATCTAC    ACTCATCTAC             0
+KOB01                                   CATACTCTAC    CATACTCTAC             1
+KOB02                                   AGCACTGTAG    AGCACTGTAG             0
+KOB03                                   TGTACTACTC    TGTACTACTC             0
+KOB04                                   AGCGTCGTCT    AGCGTCGTCT             0
+KOB05                                   TCGCACTAGT    TCGCACTAGT             0
+KOB06                                   CGCAGTACGA    CGCAGTACGA             0
+KOB07                                   TCGCTGCGTA    TCGCTGCGTA             0
+KOB08                                   ACTCGCGCAC    ACTCGCGCAC             0
+KOB10                                   CGACACTATC    CGACACTATC             2
+KOB11                                   ATATCGCGAG    ATATCGCGAG             0
+KOB12                                   ACGACTACAG    ACGACTACAG             0
+KOB13                                   AGTACGCTAT    AGTACGCTAT             0
+KOB15                                   TCTAGCGACT    TCTAGCGACT             1
+KOC01                                   CGCGTATACA    CGCGTATACA             0
+KOC02                                   TCTGACGTCA    TCTGACGTCA             1
+KOC03                                   AGAGCGTCAC    AGAGCGTCAC             0
+KOC04                                   CGAGACGCGC    CGAGACGCGC             0
+KOC05                                   CGTGTCTCTA    CGTGTCTCTA             0
+KOC06                                   CGTAGACTAG    CGTAGACTAG             0
+KOC07                                   ATAGAGTACT    ATAGAGTACT             0
+KOC08                                   TCTATACTAT    TCTATACTAT             0
+KOC09                                   CGTACAGTCA    CGTACAGTCA             0
+KOC10                                   TGAGTCAGTA    TGAGTCAGTA             0
+KOC11                                   AGCGACTAGC    AGCGACTAGC             1
+KOC12                                   CGTATGCGAC    CGTATGCGAC             0
+KOC13                                   CTCGCGTGTC    CTCGCGTGTC             0
+KOC14                                   CACGCTACGT    CACGCTACGT             0
+KOC14_LN2                               TACGAGTATG    TACGAGTATG            24
+KOK01                                   TGACGTATGT    TGACGTATGT             0
+KOK02                                   CGTACTCAGA    CGTACTCAGA             1
+KOK03                                   TGTAGTGTGA    TGTAGTGTGA             3
+KOK04                                   AGTAGTGATC    AGTAGTGATC             0
+KOK05                                   CGTCGATCTC    CGTCGATCTC             4
+KOK06                                   TCTCTATGCG    TCTCTATGCG             0
+KOK07                                   TACTCTCGTG    TACTCTCGTG             0
+KOK08                                   CAGTAGACGT    CAGTAGACGT             0
+KOK09                                   TGTGAGTAGT    TGTGAGTAGT             0
+KOK10                                   CTACGCTCTA    CTACGCTCTA             0
+KOK11                                   TGTCACACGA    TGTCACACGA             1
+KOK12                                   AGTGACACAC    AGTGACACAC             1
+KOK13                                   CTACGACTGC    CTACGACTGC             1
+KOK14                                   TGATACGTCT    TGATACGTCT             0
+LLB01                                     GTCGACCA      GTCGACCA             1
+LLB02                                     GAGCTTCA      GAGCTTCA             2
+LLB03                                     CTGATGGA      CTGATGGA             0
+LLB04                                     CCGCGTTA      CCGCGTTA             0
+LLB05                                     TAGATCAA      TAGATCAA             0
+LLB06                                   TGGACCAGAA    TGGACCAGAA             0
+LLB07                                     ACTCTTAG      ACTCTTAG             3
+LLB08                                     TCCTCAGG      TCCTCAGG             0
+LLB09                                     ATAATCCA      ATAATCCA             0
+LLB10                                     GCGCAAGA      GCGCAAGA             0
+LLB11                                     TGGACTGA      TGGACTGA             0
+LLB12                                     CCTCCAAC      CCTCCAAC             1
+LLB13                                     GTCATTAC      GTCATTAC             1
+LLB14                                   CATTGACCAA    CATTGACCAA             0
+SCL01                                     CGGAGACG      CGGAGACG             0
+SCL02                                     GTCTCGAA      GTCTCGAA             0
+SCL03                                     CGCCTCCA      CGCCTCCA             3
+SCL04                                     AGCTAAGA      AGCTAAGA             0
+SCL05                                     ACTGAATA      ACTGAATA             0
+SCL06                                     TTGCGAAC      TTGCGAAC             1
+SCL07                                     CAACTTAC      CAACTTAC             2
+SCL08                                   CTGATACCAA    CTGATACCAA             0
+SCL09                                     TGAGAGAA      TGAGAGAA             1
+SCL10                                     CGTCTAGG      CGTCTAGG             0
+SCL11                                     CGAACGCA      CGAACGCA             0
+SCL12                                     AATCCAGA      AATCCAGA             0
+SCL13                                     TAGTAATA      TAGTAATA             0
+SCL14                                     TCTGGCAA      TCTGGCAA             0
+STW01                                     GATCAACC      GATCAACC             6
+STW02                                     CAGTATCC      CAGTATCC             1
+STW03                                     AACTCGGC      AACTCGGC             1
+STW04                                    GTCCGCAGA     GTCCGCAGA             0
+STW05                                    TATTACCGA     TATTACCGA             0
+STW06                                    ATCGCGCAA     ATCGCGCAA             0
+STW07                                    CGCTGAGAA     CGCTGAGAA             1
+STW08                                    CAACTTGAA     CAACTTGAA             0
+STW09                                    AACCGCCAA     AACCGCCAA             0
+STW10                                     ACTACTCC      ACTACTCC             4
+STW11                                     CTAACTGC      CTAACTGC             0
+STW12                                    CCTGGCAGA     CCTGGCAGA             1
+STW13                                    CGCGTCCGA     CGCGTCCGA             0
+STW14                                    TACTTGCAA     TACTTGCAA             0
+TMR01                                    TCCATAGAA     TCCATAGAA             0
+TMR02                                    TGAAGCCAA     TGAAGCCAA             1
+TMR03                                    TGGACGTAA     TGGACGTAA             0
+TMR04                                     GTTCTCAA      GTTCTCAA             0
+TMR05                                     ATGCTTGC      ATGCTTGC             0
+TMR06                                    AACTTCAGA     AACTTCAGA             0
+TMR07                                    GACGAGCGA     GACGAGCGA             1
+TMR08                                    CCTTATCAA     CCTTATCAA             0
+TMR09                                    AGGTACCAA     AGGTACCAA             0
+TMR10                                    CTTCAATAA     CTTCAATAA             1
+TMR11                                    GCTGCGTAA     GCTGCGTAA             1
+TMR12                                     GGACCTCC      GGACCTCC             1
+TMR13                                     CGGCAATC      CGGCAATC             1
+TMR14                                    ACGAAGAGA     ACGAAGAGA             0
+VSG01                                    CGTTCGCGA     CGTTCGCGA             0
+VSG02                                    GGTACTCAA     GGTACTCAA             1
+VSG03                                    TAGAACGAA     TAGAACGAA             0
+VSG04                                    AAGGAATAA     AAGGAATAA             0
+VSG05                                    CTCAGGTAA     CTCAGGTAA             2
+VSG07                                     CTCGGTCC      CTCGGTCC             0
+VSG08                                     CTCTCATC      CTCTCATC             2
+VSG09                                    GGTCAGAGA     GGTCAGAGA             2
+VSG10                                    TCTAGGCGA     TCTAGGCGA             0
+VSG11                                    TTACCTCAA     TTACCTCAA             0
+VSG14                                    ACTGACGAA     ACTGACGAA             0
+no_match                                         _            _    375344838

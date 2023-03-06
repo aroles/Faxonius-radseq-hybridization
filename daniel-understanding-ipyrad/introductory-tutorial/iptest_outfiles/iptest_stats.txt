@@ -1,0 +1,89 @@
+
+
+## The number of loci caught by each filter.
+## ipyrad API location: [assembly].stats_dfs.s7_filters
+
+                            total_filters  applied_order  retained_loci
+total_prefiltered_loci               1000              0           1000
+filtered_by_rm_duplicates               0              0           1000
+filtered_by_max_indels                  0              0           1000
+filtered_by_max_snps                    0              0           1000
+filtered_by_max_shared_het              0              0           1000
+filtered_by_min_sample                  0              0           1000
+filtered_by_max_alleles                 0              0           1000
+total_filtered_loci                  1000              0           1000
+
+
+## The number of loci recovered for each Sample.
+## ipyrad API location: [assembly].stats_dfs.s7_samples
+
+      sample_coverage
+1A_0             1000
+1B_0             1000
+1C_0             1000
+1D_0             1000
+2E_0             1000
+2F_0             1000
+2G_0             1000
+2H_0             1000
+3I_0             1000
+3J_0             1000
+3K_0             1000
+3L_0             1000
+
+
+## The number of loci for which N taxa have data.
+## ipyrad API location: [assembly].stats_dfs.s7_loci
+
+    locus_coverage  sum_coverage
+1                0             0
+2                0             0
+3                0             0
+4                0             0
+5                0             0
+6                0             0
+7                0             0
+8                0             0
+9                0             0
+10               0             0
+11               0             0
+12            1000          1000
+
+
+## The distribution of SNPs (var and pis) per locus.
+## var = Number of loci with n variable sites (pis + autapomorphies)
+## pis = Number of loci with n parsimony informative site (minor allele in >1 sample)
+## ipyrad API location: [assembly].stats_dfs.s7_snps
+
+    var  sum_var  pis  sum_pis
+0    16        0  331        0
+1    55       55  376      376
+2   106      267  208      792
+3   208      891   52      948
+4   198     1683   26     1052
+5   145     2408    4     1072
+6   124     3152    3     1090
+7    69     3635    0     1090
+8    50     4035    0     1090
+9    12     4143    0     1090
+10   10     4243    0     1090
+11    3     4276    0     1090
+12    3     4312    0     1090
+13    1     4325    0     1090
+
+
+## Final Sample stats summary
+
+      state  reads_raw  reads_passed_filter  clusters_total  clusters_hidepth  hetero_est  error_est  reads_consens  loci_in_assembly
+1A_0      7      19862                19862            1000              1000    0.001824   0.000759           1000              1000
+1B_0      7      20043                20043            1000              1000    0.001908   0.000752           1000              1000
+1C_0      7      20136                20136            1000              1000    0.002084   0.000745           1000              1000
+1D_0      7      19966                19966            1000              1000    0.001803   0.000761           1000              1000
+2E_0      7      20017                20017            1000              1000    0.001830   0.000766           1000              1000
+2F_0      7      19933                19933            1000              1000    0.001996   0.000755           1000              1000
+2G_0      7      20030                20030            1000              1000    0.001940   0.000763           1000              1000
+2H_0      7      20199                20199            1000              1000    0.001747   0.000756           1000              1000
+3I_0      7      19885                19885            1000              1000    0.001807   0.000758           1000              1000
+3J_0      7      19822                19822            1000              1000    0.001931   0.000776           1000              1000
+3K_0      7      19965                19965            1000              1000    0.002092   0.000766           1000              1000
+3L_0      7      20008                20008            1000              1000    0.002042   0.000748           1000              1000

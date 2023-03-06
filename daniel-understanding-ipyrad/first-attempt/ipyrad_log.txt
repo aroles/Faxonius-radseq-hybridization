@@ -1,0 +1,99 @@
+
+ -------------------------------------------------------------
+  ipyrad [v.0.7.29]
+  Interactive assembly and analysis of RAD-seq data
+ -------------------------------------------------------------
+  Begin run: 2023-02-27 17:34
+  Using args {'force': False, 'threads': 2, 'results': False, 'quiet': False, 'merge': None, 'ipcluster': None, 'cores': 0, 'params': 'params-firstgo.txt', 'branch': None, 'steps': '7', 'debug': False, 'new': None, 'download': None, 'MPI': False}
+  Platform info: ('Darwin', 'aroles-lab2-MacPro.local', '17.7.0', 'Darwin Kernel Version 17.7.0: Thu Jun 21 22:53:14 PDT 2018; root:xnu-4570.71.2~1/RELEASE_X86_64', 'x86_64')
+ -------------------------------------------------------------
+  ipyrad [v.0.7.29]
+  Interactive assembly and analysis of RAD-seq data
+ -------------------------------------------------------------
+  Begin run: 2023-02-27 17:34
+  Using args {'force': False, 'threads': 2, 'results': False, 'quiet': False, 'merge': None, 'ipcluster': None, 'cores': 0, 'params': 'params-firstgo.txt', 'branch': None, 'steps': '1', 'debug': False, 'new': None, 'download': None, 'MPI': False}
+  Platform info: ('Darwin', 'aroles-lab2-MacPro.local', '17.7.0', 'Darwin Kernel Version 17.7.0: Thu Jun 21 22:53:14 PDT 2018; root:xnu-4570.71.2~1/RELEASE_X86_64', 'x86_64')
+ -------------------------------------------------------------
+  ipyrad [v.0.7.29]
+  Interactive assembly and analysis of RAD-seq data
+ -------------------------------------------------------------
+  Begin run: 2023-02-27 17:53
+  Using args {'force': False, 'threads': 2, 'results': False, 'quiet': False, 'merge': None, 'ipcluster': None, 'cores': 0, 'params': 'params-firstgo.txt', 'branch': None, 'steps': '1', 'debug': False, 'new': None, 'download': None, 'MPI': False}
+  Platform info: ('Darwin', 'aroles-lab2-MacPro.local', '17.7.0', 'Darwin Kernel Version 17.7.0: Thu Jun 21 22:53:14 PDT 2018; root:xnu-4570.71.2~1/RELEASE_X86_64', 'x86_64')
+ -------------------------------------------------------------
+  ipyrad [v.0.7.29]
+  Interactive assembly and analysis of RAD-seq data
+ -------------------------------------------------------------
+  Begin run: 2023-02-27 20:24
+  Using args {'force': False, 'threads': 2, 'results': False, 'quiet': False, 'merge': None, 'ipcluster': None, 'cores': 0, 'params': 'params-firstgo.txt', 'branch': None, 'steps': '1', 'debug': False, 'new': None, 'download': None, 'MPI': False}
+  Platform info: ('Darwin', 'aroles-lab2-MacPro.local', '17.7.0', 'Darwin Kernel Version 17.7.0: Thu Jun 21 22:53:14 PDT 2018; root:xnu-4570.71.2~1/RELEASE_X86_64', 'x86_64')
+ -------------------------------------------------------------
+  ipyrad [v.0.7.29]
+  Interactive assembly and analysis of RAD-seq data
+ -------------------------------------------------------------
+  Begin run: 2023-02-27 20:25
+  Using args {'force': False, 'threads': 2, 'results': True, 'quiet': False, 'merge': None, 'ipcluster': None, 'cores': 0, 'params': 'params-firstgo.txt', 'branch': None, 'steps': None, 'debug': False, 'new': None, 'download': None, 'MPI': False}
+  Platform info: ('Darwin', 'aroles-lab2-MacPro.local', '17.7.0', 'Darwin Kernel Version 17.7.0: Thu Jun 21 22:53:14 PDT 2018; root:xnu-4570.71.2~1/RELEASE_X86_64', 'x86_64')
+ -------------------------------------------------------------
+  ipyrad [v.0.7.29]
+  Interactive assembly and analysis of RAD-seq data
+ -------------------------------------------------------------
+  Begin run: 2023-02-27 20:26
+  Using args {'force': False, 'threads': 2, 'results': False, 'quiet': False, 'merge': None, 'ipcluster': None, 'cores': 0, 'params': 'params-firstgo.txt', 'branch': None, 'steps': '2', 'debug': False, 'new': None, 'download': None, 'MPI': False}
+  Platform info: ('Darwin', 'aroles-lab2-MacPro.local', '17.7.0', 'Darwin Kernel Version 17.7.0: Thu Jun 21 22:53:14 PDT 2018; root:xnu-4570.71.2~1/RELEASE_X86_64', 'x86_64')
+ -------------------------------------------------------------
+  ipyrad [v.0.7.29]
+  Interactive assembly and analysis of RAD-seq data
+ -------------------------------------------------------------
+  Begin run: 2023-02-27 20:26
+  Using args {'force': False, 'threads': 2, 'results': True, 'quiet': False, 'merge': None, 'ipcluster': None, 'cores': 0, 'params': 'params-firstgo.txt', 'branch': None, 'steps': None, 'debug': False, 'new': None, 'download': None, 'MPI': False}
+  Platform info: ('Darwin', 'aroles-lab2-MacPro.local', '17.7.0', 'Darwin Kernel Version 17.7.0: Thu Jun 21 22:53:14 PDT 2018; root:xnu-4570.71.2~1/RELEASE_X86_64', 'x86_64')
+ -------------------------------------------------------------
+  ipyrad [v.0.7.29]
+  Interactive assembly and analysis of RAD-seq data
+ -------------------------------------------------------------
+  Begin run: 2023-02-27 20:27
+  Using args {'force': False, 'threads': 2, 'results': False, 'quiet': False, 'merge': None, 'ipcluster': None, 'cores': 0, 'params': 'params-firstgo.txt', 'branch': None, 'steps': '3', 'debug': False, 'new': None, 'download': None, 'MPI': False}
+  Platform info: ('Darwin', 'aroles-lab2-MacPro.local', '17.7.0', 'Darwin Kernel Version 17.7.0: Thu Jun 21 22:53:14 PDT 2018; root:xnu-4570.71.2~1/RELEASE_X86_64', 'x86_64')
+ -------------------------------------------------------------
+  ipyrad [v.0.7.29]
+  Interactive assembly and analysis of RAD-seq data
+ -------------------------------------------------------------
+  Begin run: 2023-02-27 20:41
+  Using args {'force': False, 'threads': 2, 'results': True, 'quiet': False, 'merge': None, 'ipcluster': None, 'cores': 0, 'params': 'params-firstgo.txt', 'branch': None, 'steps': None, 'debug': False, 'new': None, 'download': None, 'MPI': False}
+  Platform info: ('Darwin', 'aroles-lab2-MacPro.local', '17.7.0', 'Darwin Kernel Version 17.7.0: Thu Jun 21 22:53:14 PDT 2018; root:xnu-4570.71.2~1/RELEASE_X86_64', 'x86_64')
+ -------------------------------------------------------------
+  ipyrad [v.0.7.29]
+  Interactive assembly and analysis of RAD-seq data
+ -------------------------------------------------------------
+  Begin run: 2023-02-27 20:42
+  Using args {'force': False, 'threads': 2, 'results': False, 'quiet': False, 'merge': None, 'ipcluster': None, 'cores': 0, 'params': 'params-firstgo.txt', 'branch': None, 'steps': '4', 'debug': False, 'new': None, 'download': None, 'MPI': False}
+  Platform info: ('Darwin', 'aroles-lab2-MacPro.local', '17.7.0', 'Darwin Kernel Version 17.7.0: Thu Jun 21 22:53:14 PDT 2018; root:xnu-4570.71.2~1/RELEASE_X86_64', 'x86_64')
+ -------------------------------------------------------------
+  ipyrad [v.0.7.29]
+  Interactive assembly and analysis of RAD-seq data
+ -------------------------------------------------------------
+  Begin run: 2023-02-27 20:42
+  Using args {'force': False, 'threads': 2, 'results': False, 'quiet': False, 'merge': None, 'ipcluster': None, 'cores': 0, 'params': 'params-firstgo.txt', 'branch': None, 'steps': '5', 'debug': False, 'new': None, 'download': None, 'MPI': False}
+  Platform info: ('Darwin', 'aroles-lab2-MacPro.local', '17.7.0', 'Darwin Kernel Version 17.7.0: Thu Jun 21 22:53:14 PDT 2018; root:xnu-4570.71.2~1/RELEASE_X86_64', 'x86_64')
+ -------------------------------------------------------------
+  ipyrad [v.0.7.29]
+  Interactive assembly and analysis of RAD-seq data
+ -------------------------------------------------------------
+  Begin run: 2023-02-27 20:43
+  Using args {'force': False, 'threads': 2, 'results': False, 'quiet': False, 'merge': None, 'ipcluster': None, 'cores': 0, 'params': 'params-firstgo.txt', 'branch': None, 'steps': '6', 'debug': False, 'new': None, 'download': None, 'MPI': False}
+  Platform info: ('Darwin', 'aroles-lab2-MacPro.local', '17.7.0', 'Darwin Kernel Version 17.7.0: Thu Jun 21 22:53:14 PDT 2018; root:xnu-4570.71.2~1/RELEASE_X86_64', 'x86_64')
+ -------------------------------------------------------------
+  ipyrad [v.0.7.29]
+  Interactive assembly and analysis of RAD-seq data
+ -------------------------------------------------------------
+  Begin run: 2023-02-28 10:48
+  Using args {'force': False, 'threads': 2, 'results': True, 'quiet': False, 'merge': None, 'ipcluster': None, 'cores': 0, 'params': 'params-firstgo.txt', 'branch': None, 'steps': None, 'debug': False, 'new': None, 'download': None, 'MPI': False}
+  Platform info: ('Darwin', 'aroles-lab2-MacPro.local', '17.7.0', 'Darwin Kernel Version 17.7.0: Thu Jun 21 22:53:14 PDT 2018; root:xnu-4570.71.2~1/RELEASE_X86_64', 'x86_64')
+ -------------------------------------------------------------
+  ipyrad [v.0.7.29]
+  Interactive assembly and analysis of RAD-seq data
+ -------------------------------------------------------------
+  Begin run: 2023-02-28 10:48
+  Using args {'force': False, 'threads': 2, 'results': False, 'quiet': False, 'merge': None, 'ipcluster': None, 'cores': 0, 'params': 'params-firstgo.txt', 'branch': None, 'steps': '6', 'debug': False, 'new': None, 'download': None, 'MPI': False}
+  Platform info: ('Darwin', 'aroles-lab2-MacPro.local', '17.7.0', 'Darwin Kernel Version 17.7.0: Thu Jun 21 22:53:14 PDT 2018; root:xnu-4570.71.2~1/RELEASE_X86_64', 'x86_64')
