@@ -1,0 +1,26 @@
+aroles-lab2-MacPro:all_outfiles student$ tetrad -h
+Traceback (most recent call last):
+  File "/Users/student/anaconda/bin/tetrad", line 11, in <module>
+    load_entry_point('ipyrad==0.7.29', 'console_scripts', 'tetrad')()
+  File "/Users/student/anaconda/lib/python2.7/site-packages/pkg_resources/__init__.py", line 489, in load_entry_point
+    return get_distribution(dist).load_entry_point(group, name)
+  File "/Users/student/anaconda/lib/python2.7/site-packages/pkg_resources/__init__.py", line 2793, in load_entry_point
+    return ep.load()
+  File "/Users/student/anaconda/lib/python2.7/site-packages/pkg_resources/__init__.py", line 2411, in load
+    return self.resolve()
+  File "/Users/student/anaconda/lib/python2.7/site-packages/pkg_resources/__init__.py", line 2417, in resolve
+    module = __import__(self.module_name, fromlist=['__name__'], level=0)
+  File "/Users/student/anaconda/lib/python2.7/site-packages/ipyrad/analysis/__init__.py", line 18, in <module>
+    from .structure import Structure as structure
+  File "/Users/student/anaconda/lib/python2.7/site-packages/ipyrad/analysis/structure.py", line 12, in <module>
+    from ipyrad.analysis.tetrad import get_spans
+  File "/Users/student/anaconda/lib/python2.7/site-packages/ipyrad/analysis/tetrad.py", line 63, in <module>
+    """)
+  File "/Users/student/anaconda/lib/python2.7/site-packages/ipyrad/assemble/util.py", line 52, in __init__
+    raise IPyradError(*args, **kwargs)
+ipyrad.assemble.util.IPyradError: 
+    Error: tetrad requires the dependency 'toytree', which we haven't yet
+    included in the ipyrad installation. For now, you can install toytree
+    using conda with the following command: 
+
+    conda install toytree -c eaton-lab
