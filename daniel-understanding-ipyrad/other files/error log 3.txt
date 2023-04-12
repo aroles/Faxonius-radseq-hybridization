@@ -1,0 +1,25 @@
+aroles-lab2-MacPro:all_outfiles student$ conda install toytree -c eaton-lab
+Collecting package metadata: done
+Solving environment: failed
+
+PackagesNotFoundError: The following packages are not available from current channels:
+
+  - toytree
+
+Current channels:
+
+  - https://conda.anaconda.org/eaton-lab/osx-64
+  - https://conda.anaconda.org/eaton-lab/noarch
+  - https://repo.anaconda.com/pkgs/main/osx-64
+  - https://repo.anaconda.com/pkgs/main/noarch
+  - https://repo.anaconda.com/pkgs/free/osx-64
+  - https://repo.anaconda.com/pkgs/free/noarch
+  - https://repo.anaconda.com/pkgs/r/osx-64
+  - https://repo.anaconda.com/pkgs/r/noarch
+
+To search for alternate channels that may provide the conda package you're
+looking for, navigate to
+
+    https://anaconda.org
+
+and use the search bar at the top of the page.
