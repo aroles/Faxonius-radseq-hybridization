@@ -1,0 +1,27 @@
+{
+    "id": "61AB7FDA",
+    "path": "~/Desktop/Oberlin Student/Angie Lab/structurR/scripts/VCFR_filtration.R",
+    "project_path": "scripts/VCFR_filtration.R",
+    "type": "r_source",
+    "hash": "3322555846",
+    "contents": "",
+    "dirty": false,
+    "created": 1705075958704.0,
+    "source_on_save": false,
+    "relative_order": 9,
+    "properties": {
+        "tempName": "Untitled1",
+        "source_window_id": "",
+        "Source": "Source",
+        "cursorPosition": "93,0",
+        "scrollLine": "0"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1705075983,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1705075983497,
+    "read_only": false,
+    "read_only_alternatives": []
+}

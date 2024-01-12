@@ -1,0 +1,145 @@
+#CH 0: Libraries ----
+library(dplyr)
+library(ggplot2)
+library(readr)
+library(stringr)
+library(lubridate)
+library(tidyr)
+library(forcats)
+library(praise)
+library(purrr)
+library(vcfR)
+
+#CH 1: Reading in Data----
+VCF <- read_tsv("data/all_Copy.VCF") #keeping this around
+#VCF <- read.vcf
+View(VCF)
+#works
+
+#CH 2: Making it longer and good formatted----
+VCF_Longer <- VCF %>% #makes it longer
+  select(!(KOC14_LN2)) %>% #we kill this sample, its too asinine to deal with, and this has been the standard practice
+  pivot_longer(names_to="SAMPLE",values_to="CODING",cols=starts_with(c("HUX","TMR","HHT","HRM","LLB","KOB","KOA","KOC","KOK", "KDN","KGL","BOK","STW","CRM","SCL","VSG")))
+VCF_Longer <- VCF_Longer %>% #we encode a useful true false variable using the data provided
+  mutate(PRESENCE=case_when(
+    CODING=="./.:0:0,0,0,0" ~ FALSE,
+    TRUE ~ TRUE)
+  )
+View(VCF_Longer)
+praise()
+#This longer VCF, elaborated below, is useful, particularly the true/false work we have done. But we need to go wider
+
+#CH 3: Re-wider ----
+#I have had an epiphany: we never needed to go longer. Actually that is a lie [We need the longer file to easily duplicate the sample encoding]. But once we went longer we should now go wider
+#To elaborate on the epiphany, filtration will be better done in a wide dataframe which encodes the presence of an individual at each locus in a true/false format. This encoding can be summed across rows in various ways to encode for the number of times a location/population is present in a locus
+
+VCF_Wider <- VCF_Longer %>%
+  mutate(SAMPLE_P=str_c(SAMPLE,"P",sep="_")) #This enables us to do the alpha/beta encoding split, duplicating the sample names with sample_P so that we can keep track of two different columns for each sample
+
+VCF_Wider_alpha <- VCF_Wider %>%
+  select(!c(PRESENCE,SAMPLE_P)) %>%
+  pivot_wider(names_from=SAMPLE,values_from=CODING) #make a wider dataframe which has the original VCF encoding. I want to retain this in our dataframe so that, once I have filtered, I can just cut the fat and return to the VCF format as easily as possible
+VCF_Wider_beta <- VCF_Wider %>%
+  select(!c(CODING,SAMPLE)) %>%
+  pivot_wider(names_from=SAMPLE_P,values_from=PRESENCE) #make a wider dataframe which has the true/false encoding that is more useful to me for filtration
+VCF_Wider_full <- full_join(VCF_Wider_beta,VCF_Wider_alpha)
+View(VCF_Wider_full) #now we have a wider dataframe that should easily suit our needs, encoding individuals both in terms of the VCF format and a simpler true/false format.
+
+#CH 4: Encoding Variables ----
+VCF_Wider_Data <- VCF_Wider_full %>% #Population Encoding
+  mutate(HUX_PRESENT = select(.,HUX01_P:HUX14_P)%>%rowSums(),#this is a genius way of doing this. We select all of the columns representing individuals in a single population we want since they are next to each other, this essentially creates an ephemeral dataframe, which can be rowsummed to make a single column. We set this to the mutate
+         TMR_PRESENT = select(.,TMR01_P:TMR14_P)%>%rowSums(), #I dont know why we need the . but we do
+         HHT_PRESENT = select(.,HHT01_P:HHT14_P)%>%rowSums(),
+         HRM_PRESENT = select(.,HRM01_P:HRM14_P)%>%rowSums(),         
+         LLB_PRESENT = select(.,LLB01_P:LLB14_P)%>%rowSums(),         
+         KOB_PRESENT = select(.,KOB01_P:KOB15_P)%>%rowSums(), 
+         KOA_PRESENT = select(.,KOA01_P:KOA14_P)%>%rowSums(),
+         KOC_PRESENT = select(.,KOC01_P:KOC14_P)%>%rowSums(),
+         KOK_PRESENT = select(.,KOK01_P:KOK14_P)%>%rowSums(),
+         KDN_PRESENT = select(.,KDN01_P:KDN14_P)%>%rowSums(),
+         KGL_PRESENT = select(.,KGL01_P:KGL14_P)%>%rowSums(),
+         BOK_PRESENT = select(.,BOK01_P:BOK14_P)%>%rowSums(),
+         STW_PRESENT = select(.,STW01_P:STW14_P)%>%rowSums(),
+         CRM_PRESENT = select(.,CRM01_P:CRM14_P)%>%rowSums(),
+         SCL_PRESENT = select(.,SCL01_P:SCL14_P)%>%rowSums(),
+         VSG_PRESENT = select(.,VSG01_P:VSG14_P)%>%rowSums())
+VCF_Wider_Data <- VCF_Wider_Data %>% #This does group encoding from the population encoding
+  mutate(HURON = select(.,HUX_PRESENT,TMR_PRESENT,HHT_PRESENT,HRM_PRESENT,LLB_PRESENT)%>%rowSums(),
+         KOKOSING = select(.,KOB_PRESENT,KOA_PRESENT,KOC_PRESENT,KOK_PRESENT,KDN_PRESENT,KGL_PRESENT)%>%rowSums(),
+         RUSTICUS = select(.,BOK_PRESENT,STW_PRESENT)%>%rowSums(),
+         SAMBORNI = select(.,CRM_PRESENT,SCL_PRESENT,VSG_PRESENT)%>%rowSums())
+VCF_Wider_Data <- VCF_Wider_Data %>% #This is simply encoding a variable which sums all hits for a given locus
+  mutate(TOTAL=select(.,HURON:SAMBORNI)%>%rowSums())
+View(VCF_Wider_Data)
+praise()
+
+VCF_Summary <- VCF_Wider_Data %>% #This is just a lil table which retains only the variables specifically needed for filtration (location, population encoding, as well as the total variable). It is simply nicer to look at when running filtrations but cannot be returned to the VCF format we need
+  select(`#CHROM`,POS,HUX_PRESENT:TOTAL)
+View(VCF_Summary)
+
+#CH 5: Filtration for Loci and Reformatting----
+
+#this should be a relatively simple affair. We will start with looking for loci that have 2 in each group
+#first i will try and do it using the summary dataset, for ease of reading, nothing should change if i use the Data dataset, hopefully
+Filtered_1 <- VCF_Summary %>%
+  filter(HURON>=2 & KOKOSING>=2 & RUSTICUS>=2 & SAMBORNI>=2)
+View(Filtered_1)
+#more stringent filtration
+Filtered_2 <- VCF_Summary %>%
+  filter(HURON>=5 & KOKOSING>=5 & RUSTICUS>=5 & SAMBORNI>=5)
+View(Filtered_2)
+
+#ok but now that i have linux installed in a virtual machine back to filtering the big table and reformatting it to standard VCF
+#simple 2 of each group
+VCF_Filtered <- VCF_Wider_Data  %>%
+  filter(HURON>=2 & KOKOSING>=2 & RUSTICUS>=2 & SAMBORNI>=2)
+View(VCF_Filtered)
+#looks like we have ~a quarter of the loci left from looking at the environment. Ok now we just need to get rid of the grouping columns and the _P columns
+VCF_Filtered_Export <- VCF_Filtered %>%
+  select(!HUX01_P:VSG14_P) %>% #removing the _P columns. this works because they are ordered in one group, the normal columns coming after them
+  select(!HUX_PRESENT:TOTAL) #removing the grouping columns. same methodology
+
+#perfect. The export dataframe has 1 less column than the imported one because we removed KOC14_LN2 at the beginning
+praise()
+
+#now we just need to write it
+write_tsv(VCF_Filtered_Export,"data/SimpleFilter1.VCF")
+
+
+#THATS IT WOO! FINALLY I CAN GET ONE STEP CLOSER TO ACTUALLY ANALYZING
+
+#CH 7: I got bored so im doing some data visualization----
+#Histogram
+VCF_Summary_smal <- VCF_Summary %>%
+  filter(TOTAL>70) #making a new dataset which only has loci with more than 70 organisms
+VCF_Summary_smal %>%
+  ggplot()+
+  geom_histogram(mapping=aes(x=TOTAL),bins=70) #hm. cool
+
+#trying to establish how me might easily calculate toal # loci
+summarize(VCF_Summary_smal,Total_Loci = nrow(VCF_Summary_smal))
+#literally just have to nrow it, we annoying have to specify the dataframe we are nrowing
+
+Filtered_1 %>%
+  ggplot()+
+  geom_histogram(mapping=aes(x=TOTAL),bins=70) #hm. cool
+Filtered_2 %>%
+  ggplot()+
+  geom_histogram(mapping=aes(x=TOTAL),bins=70) #hm. cool
+
+#APPENDIX ----
+Samples_VCF <- VCF_Longer %>%
+  select(SAMPLE) %>%
+  unique() %>%
+  select(SAMPLE)
+#above just generates a list of the samples which may/may not be useful
+
+
+#below old code which i dont think i need for making the longer table have population and group encoding
+
+VCF_Longer <- VCF_Longer %>% #we add population and group tags
+  mutate(POPULATION=str_sub(VCF_Longer$SAMPLE,1,3)) %>%
+  mutate(GROUP=case_when(POPULATION=="KOB"|POPULATION=="KOA"|POPULATION=="KOC"|POPULATION=="KOK"|POPULATION=="KDN"|POPULATION=="KGL"~"Kokosing",
+                         POPULATION=="HUX"|POPULATION=="TMR"|POPULATION=="HHT"|POPULATION=="HRM"|POPULATION=="LLB"~"Huron",
+                         POPULATION=="BOK"|POPULATION=="STW"~"Rusticus",
+                         POPULATION=="CRM"|POPULATION=="SCL"|POPULATION=="VSG"~"Samborni"))

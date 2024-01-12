@@ -1,0 +1,28 @@
+{
+    "id": "4EA5F00C",
+    "path": null,
+    "project_path": null,
+    "type": "object_explorer",
+    "hash": "0",
+    "contents": "",
+    "dirty": false,
+    "created": 1702665461765.0,
+    "source_on_save": false,
+    "relative_order": 7,
+    "properties": {
+        "id": "f8bb1fc29e5448559b75d7036cabe57d",
+        "name": "genlight",
+        "title": "genlight",
+        "language": "R",
+        "source_window_id": "",
+        "Source": "Source"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 0,
+    "encoding": "",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1702665461765,
+    "read_only": false,
+    "read_only_alternatives": []
+}
